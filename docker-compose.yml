@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ui-services:
+    build:
+      context: ./ui-services
+    image: titan/ui-services:latest
+    ports:
+      - "8080:80"
