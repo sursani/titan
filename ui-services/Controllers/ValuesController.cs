@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ui_services.Controllers
+namespace Titan.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
