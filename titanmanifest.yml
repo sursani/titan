@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ui-services
-        image: titancontainerregistry.azurecr.io/ui-services:v1
+        image: gcr.io/titan-185301/ui-services:v2
         ports:
         - containerPort: 80
         resources:
