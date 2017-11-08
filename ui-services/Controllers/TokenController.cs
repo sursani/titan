@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Titan.Controllers
 {
-    [Route("/token")]
+    [Route("api/[controller]")]
     public class TokenController : Controller
     {        
         [HttpPost]
