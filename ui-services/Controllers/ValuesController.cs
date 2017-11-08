@@ -18,7 +18,7 @@ namespace Titan.Controllers
         }
 
         // GET api/values/5
-        [Authorize]
+        [Authorize("SuperAdministrator")]
         [HttpGet("{id}")]
         public string Get(int id)
         {

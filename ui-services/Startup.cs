@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -47,6 +48,10 @@ namespace Titan
                             ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                         };
                     });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("SuperAdministrator", policy => policy.RequireClaim(ClaimTypes.Name, "faran"));
+            });
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
