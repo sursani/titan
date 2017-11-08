@@ -4,17 +4,19 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Titan.Models;
 
 namespace Titan.Controllers
 {
     [Route("api/[controller]")]
     public class TokenController : Controller
-    {        
+    {
         [HttpPost]
-        public IActionResult Create(string username, string password)
+        public IActionResult Create([FromBody]TokenCreateModel model)
         {
-            if (IsValidUserAndPasswordCombination(username, password))
-                return new ObjectResult(GenerateToken(username));
+            if (IsValidUserAndPasswordCombination(model.UserName, model.Password))
+                return new ObjectResult(GenerateToken(model.UserName));
+            
             return BadRequest();
         }
 
