@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui-services", "ui-services\ui-services.csproj", "{FFD4EB2C-E5AA-4692-9CD9-952FAD473D83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data", "data\data.csproj", "{D50D8660-17EB-4079-8F4C-BCB7716C578B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{FFD4EB2C-E5AA-4692-9CD9-952FAD473D83}.Release|x64.Build.0 = Release|x64
 		{FFD4EB2C-E5AA-4692-9CD9-952FAD473D83}.Release|x86.ActiveCfg = Release|x86
 		{FFD4EB2C-E5AA-4692-9CD9-952FAD473D83}.Release|x86.Build.0 = Release|x86
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|x64.ActiveCfg = Debug|x64
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|x64.Build.0 = Debug|x64
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|x86.ActiveCfg = Debug|x86
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Debug|x86.Build.0 = Debug|x86
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|x64.ActiveCfg = Release|x64
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|x64.Build.0 = Release|x64
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|x86.ActiveCfg = Release|x86
+		{D50D8660-17EB-4079-8F4C-BCB7716C578B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
