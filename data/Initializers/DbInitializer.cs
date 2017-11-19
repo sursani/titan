@@ -28,7 +28,8 @@ namespace Titan.Initializers
                     LastName="Alexander",
                     Email="test1@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
-                    Gender=Gender.Male
+                    Gender=Gender.Male,
+                    UserName="user1"
                 },
                 new User
                 {
@@ -36,7 +37,8 @@ namespace Titan.Initializers
                     LastName="Alonso",
                     Email="test2@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
-                    Gender=Gender.Female
+                    Gender=Gender.Female,
+                    UserName="user2"
                 },
                 new User
                 {
@@ -44,7 +46,8 @@ namespace Titan.Initializers
                     LastName="Anand",
                     Email="test3@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
-                    Gender=Gender.Male
+                    Gender=Gender.Male,
+                    UserName="user3"
                 }
             };
 
