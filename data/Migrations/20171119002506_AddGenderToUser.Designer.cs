@@ -12,9 +12,10 @@ using Titan.Entities;
 namespace data.Migrations
 {
     [DbContext(typeof(TitanContext))]
-    partial class TitanContextModelSnapshot : ModelSnapshot
+    [Migration("20171119002506_AddGenderToUser")]
+    partial class AddGenderToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
