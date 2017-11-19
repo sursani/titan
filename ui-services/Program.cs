@@ -19,6 +19,7 @@ namespace Titan
         {
             var host = BuildWebHost(args);
             
+            #if DEBUG
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -33,6 +34,7 @@ namespace Titan
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
+            #endif
             
             host.Run();
         }
