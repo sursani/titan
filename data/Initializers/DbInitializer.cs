@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Titan.Contexts;
 using Titan.Entities;
@@ -18,9 +19,9 @@ namespace Titan.Initializers
 
             var users = new User[]
             {
-                new User{FirstName="Carson",LastName="Alexander",Email="test1@test.com"},
-                new User{FirstName="Meredith",LastName="Alonso",Email="test2@test.com"},
-                new User{FirstName="Arturo",LastName="Anand",Email="test3@test.com"}
+                new User{FirstName="Carson",LastName="Alexander",Email="test1@test.com",DateOfBirth=new DateTime(1999, 1, 1)},
+                new User{FirstName="Meredith",LastName="Alonso",Email="test2@test.com",DateOfBirth=new DateTime(1999, 1, 1)},
+                new User{FirstName="Arturo",LastName="Anand",Email="test3@test.com",DateOfBirth=new DateTime(1999, 1, 1)}
             };
 
             foreach (var u in users)
