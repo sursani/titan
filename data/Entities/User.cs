@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Titan.Entities
 {
@@ -11,5 +12,10 @@ namespace Titan.Entities
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Updated { get; set; }
+
+        [Column(TypeName = "GEOGRAPHY(Point)")]
+        public string Location { get; set; }
     }
 }

@@ -29,7 +29,9 @@ namespace Titan.Initializers
                     Email="test1@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
                     Gender=Gender.Male,
-                    UserName="user1"
+                    UserName="user1",
+                    Created=DateTime.UtcNow,
+                    Location="POINT(-117.867390 33.676244)"
                 },
                 new User
                 {
@@ -38,7 +40,9 @@ namespace Titan.Initializers
                     Email="test2@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
                     Gender=Gender.Female,
-                    UserName="user2"
+                    UserName="user2",
+                    Created=DateTime.UtcNow,
+                    Location="POINT(-118.4079 33.9434)"
                 },
                 new User
                 {
@@ -47,7 +51,9 @@ namespace Titan.Initializers
                     Email="test3@test.com",
                     DateOfBirth=new DateTime(1999, 1, 1),
                     Gender=Gender.Male,
-                    UserName="user3"
+                    UserName="user3",
+                    Created=DateTime.UtcNow,
+                    Location="POINT(-122.379191 37.621500)"
                 }
             };
 
