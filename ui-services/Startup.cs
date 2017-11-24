@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using Titan.Contexts;
+using Titan.Data.StartupInitializer;
 
 namespace Titan
 {
@@ -32,8 +33,8 @@ namespace Titan
         public void ConfigureServices(IServiceCollection services)
         {
             // sql
-            services.AddDbContext<TitanContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = Configuration.GetConnectionString("TitanContext");
+            new DbStartup().SetupDb(services, connectionString);
 
             services.AddMvc();
 
