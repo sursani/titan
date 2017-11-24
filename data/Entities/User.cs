@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using NpgsqlTypes;
 
 namespace Titan.Entities
 {
@@ -16,6 +17,6 @@ namespace Titan.Entities
         public DateTime? Updated { get; set; }
 
         [Column(TypeName = "GEOGRAPHY(Point)")]
-        public string Location { get; set; }
+        public PostgisGeometry Location { get; set; }
     }
 }
