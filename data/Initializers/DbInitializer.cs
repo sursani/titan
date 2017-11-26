@@ -7,8 +7,10 @@ using Titan.Entities;
 namespace Titan.Initializers
 {
     // NOTES:
-    // command: dotnet ef --startup-project ../ui-services/ migrations add InitialMigration
-    // command: dotnet ef --startup-project ../ui-services/ database update
+    /*
+    dotnet ef --startup-project ../ui-services/ migrations add Initial
+    dotnet ef --startup-project ../ui-services/ migrations script Initial -o ../data/Migrations/Scripts/initial.sql 
+     */
 
     public static class DbInitializer
     {
@@ -32,7 +34,6 @@ namespace Titan.Initializers
                     Gender=Gender.Male,
                     UserName="user1",
                     Created=DateTime.UtcNow,
-                    //Location="POINT(-117.867390 33.676244)"
                     Location= new Postgis​Point(33.676244d, -117.867390d)
                 },
                 new User
@@ -44,7 +45,6 @@ namespace Titan.Initializers
                     Gender=Gender.Female,
                     UserName="user2",
                     Created=DateTime.UtcNow,
-                    //Location="POINT(-118.4079 33.9434)"
                     Location= new Postgis​Point(33.9434d, -118.4079d)
                 },
                 new User
@@ -56,7 +56,6 @@ namespace Titan.Initializers
                     Gender=Gender.Male,
                     UserName="user3",
                     Created=DateTime.UtcNow,
-                    //Location="POINT(-122.379191 37.621500)"
                     Location= new Postgis​Point(37.621500d, -122.379191d)
                 }
             };
