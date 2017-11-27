@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 
@@ -15,10 +16,16 @@ namespace data.Migrations
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.AddColumn<PostgisGeometry>(
                 name: "Location",
                 table: "User",
-                type: "GEOGRAPHY(Point)",
+                type: "geometry",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Password",
+                table: "User",
+                type: "text",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
@@ -36,6 +43,10 @@ namespace data.Migrations
 
             migrationBuilder.DropColumn(
                 name: "Location",
+                table: "User");
+
+            migrationBuilder.DropColumn(
+                name: "Password",
                 table: "User");
 
             migrationBuilder.DropColumn(

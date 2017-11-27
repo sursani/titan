@@ -26,7 +26,8 @@ namespace Titan.Initializers
 
             var users = new User[]
             {
-                new User{
+                new User
+                {
                     FirstName="Carson",
                     LastName="Alexander",
                     Email="test1@test.com",
@@ -34,7 +35,7 @@ namespace Titan.Initializers
                     Gender=Gender.Male,
                     UserName="user1",
                     Created=DateTime.UtcNow,
-                    Location= new Postgis​Point(33.676244d, -117.867390d)
+                    Location=new Postgis​Point(33.676244d, -117.867390){SRID=4326}
                 },
                 new User
                 {
@@ -45,7 +46,7 @@ namespace Titan.Initializers
                     Gender=Gender.Female,
                     UserName="user2",
                     Created=DateTime.UtcNow,
-                    Location= new Postgis​Point(33.9434d, -118.4079d)
+                    Location=new Postgis​Point(33.9434d, -118.4079d){SRID=4326}
                 },
                 new User
                 {
@@ -56,7 +57,7 @@ namespace Titan.Initializers
                     Gender=Gender.Male,
                     UserName="user3",
                     Created=DateTime.UtcNow,
-                    Location= new Postgis​Point(37.621500d, -122.379191d)
+                    Location=new Postgis​Point(37.621500d, -122.379191d){SRID=4326}
                 }
             };
 

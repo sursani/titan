@@ -4,17 +4,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Titan.Contexts;
 using Titan.Models;
+using Titan.Services;
 
 namespace Titan.Controllers
 {
     [Route("api/[controller]")]
     public class RegistrationController : Controller
     {
-        private readonly TitanContext _context;
+        private readonly IUserService _userService;
 
-        public RegistrationController(TitanContext context)
+        public RegistrationController(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var user1 = await _userService.GetUserById(1);
+            var user2 = await _userService.GetUserById(2);
+
+            var value = await _userService.DistanceBetweenUsers(user1, user2);
+            return Ok(value);
         }
 
         [HttpPost]
@@ -23,9 +34,10 @@ namespace Titan.Controllers
             if (model == null)
                 return BadRequest();
 
-            var users = await _context.Users.ToListAsync();
+            await _userService.RegisterNewUser(model.UserName, model.Password, model.FirstName,
+                    model.LastName, model.Email, model.Gender, model.Latitude, model.Longitude);
 
-            return Created("/registration", new { Name = users.First().FirstName });
+            return Created("/registration", new { Name = "test" });
         }
     }
 }

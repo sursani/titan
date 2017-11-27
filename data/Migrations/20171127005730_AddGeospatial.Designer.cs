@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using NpgsqlTypes;
 using System;
 using Titan.Contexts;
 using Titan.Entities;
@@ -12,7 +13,7 @@ using Titan.Entities;
 namespace data.Migrations
 {
     [DbContext(typeof(TitanContext))]
-    [Migration("20171124222535_AddGeospatial")]
+    [Migration("20171127005730_AddGeospatial")]
     partial class AddGeospatial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,8 +40,9 @@ namespace data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("GEOGRAPHY(Point)");
+                    b.Property<PostgisGeometry>("Location");
+
+                    b.Property<string>("Password");
 
                     b.Property<DateTime?>("Updated");
 

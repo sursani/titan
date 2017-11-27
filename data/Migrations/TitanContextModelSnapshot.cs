@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using NpgsqlTypes;
 using System;
 using Titan.Contexts;
 using Titan.Entities;
@@ -38,8 +39,9 @@ namespace data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("GEOGRAPHY(Point)");
+                    b.Property<PostgisGeometry>("Location");
+
+                    b.Property<string>("Password");
 
                     b.Property<DateTime?>("Updated");
 

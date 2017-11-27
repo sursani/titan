@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using Titan.Contexts;
 using Titan.Data.StartupInitializer;
+using Titan.Services;
 
 namespace Titan
 {
@@ -38,6 +39,7 @@ namespace Titan
 
             services.AddMvc();
 
+#region authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         options.TokenValidationParameters = new TokenValidationParameters
@@ -55,6 +57,9 @@ namespace Titan
                             ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                         };
                     });
+#endregion
+
+            RegisterServices(services);
 
             services.AddAuthorization(options => {
                 options.AddPolicy("SuperAdministrator", policy => policy.RequireClaim(ClaimTypes.Name, "faran"));
@@ -65,6 +70,11 @@ namespace Titan
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
