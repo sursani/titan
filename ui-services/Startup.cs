@@ -16,7 +16,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 using Titan.Contexts;
-using Titan.Data.StartupInitializer;
+using Titan.Data;
+using Titan.Models;
 using Titan.Services;
 
 namespace Titan
@@ -33,9 +34,15 @@ namespace Titan
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add the service required for using options.
+            services.AddOptions();
+            services.Configure<ConnectionStringOptions>(Configuration.GetSection("ConnectionStrings"));
+
+            RegisterServices(services);
+
             // sql
-            var connectionString = Configuration.GetConnectionString("TitanContext");
-            new DbStartup().SetupDb(services, connectionString);
+            var baseConnectionString = Configuration.GetConnectionString("TitanContext");
+            new DbStartup().SetupDb(services, baseConnectionString);
 
             services.AddMvc();
 
@@ -59,9 +66,8 @@ namespace Titan
                     });
 #endregion
 
-            RegisterServices(services);
-
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy("SuperAdministrator", policy => policy.RequireClaim(ClaimTypes.Name, "faran"));
             });
 

@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Npgsql;
 using NpgsqlTypes;
 using Titan.Contexts;
+using Titan.Data;
 using Titan.Entities;
 
 namespace Titan.Services
@@ -15,12 +17,12 @@ namespace Titan.Services
     public class UserService : IUserService
     {
         private readonly TitanContext _context;
-        private readonly IConfiguration _configuration;
+        private readonly IOptions<ConnectionStringOptions> _connStrOptions;
 
-        public UserService(TitanContext context, IConfiguration configuration)
+        public UserService(TitanContext context, IOptions<ConnectionStringOptions> connStrOptions)
         {
             _context = context;
-            _configuration = configuration;
+            _connStrOptions = connStrOptions;
         }
 
         public async Task<bool> RegisterNewUser(string userName, string password, string firstName, string lastName,
@@ -45,7 +47,7 @@ namespace Titan.Services
 
         public async Task<double> DistanceBetweenUsers(User firstUser, User secondUser)
         {
-            using (var conn = new NpgsqlConnection(_configuration.GetConnectionString("TitanContext")))
+            using (var conn = new NpgsqlConnection(new ApplicationContext().GetConnectionString(_connStrOptions.Value.TitanContext)))
             {
                 await conn.OpenAsync();
                 using (var cmd = new NpgsqlCommand())

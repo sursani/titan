@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Titan.Contexts;
 using Titan.Initializers;
+using NLog.Web;
 
 namespace Titan
 {
@@ -17,8 +18,22 @@ namespace Titan
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
+            IWebHost host;
             
+            // NLog: setup the logger first to catch all errors
+            var logger = NLogBuilder.ConfigureNLog("./NLog.config").GetCurrentClassLogger();
+            try
+            {
+                logger.Debug("init main");
+                host = BuildWebHost(args);
+            }
+            catch (Exception e)
+            {
+                //NLog: catch setup errors
+                logger.Error(e, "Stopped program because of exception");
+                throw;
+            }
+
             #if DEBUG
             using (var scope = host.Services.CreateScope())
             {
@@ -30,8 +45,7 @@ namespace Titan
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while seeding the database.");
+                    logger.Error(ex, "An error occurred while seeding the database.");
                 }
             }
             #endif
@@ -42,6 +56,7 @@ namespace Titan
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseNLog()
                 .Build();
     }
 }
