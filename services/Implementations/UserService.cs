@@ -57,9 +57,9 @@ namespace Titan.Services
                     cmd.Parameters.AddWithValue("p1", firstUser.Id);
                     cmd.Parameters.AddWithValue("p2", secondUser.Id);
                     
-                    var o = await cmd.ExecuteScalarAsync();
+                    var obj = await cmd.ExecuteScalarAsync();
+                    return Convert.ToDouble(obj);
                 }
-                return 0d;
             }
         }
 
