@@ -21,11 +21,11 @@ spec:
           image: gcr.io/titan-185301/ui-services:v23
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              cpu: 250m
-            limits:
-              cpu: 500m
+          #resources:
+          #  requests:
+          #    cpu: 250m
+          #  limits:
+          #    cpu: 500m
           # The following environment variables will contain the database host,
           # user and password to connect to the PostgreSQL instance.
           env:
