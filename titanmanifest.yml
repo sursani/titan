@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: ui-services
-          image: gcr.io/titan-185301/ui-services:v22
+          image: gcr.io/titan-185301/ui-services:v23
           ports:
             - containerPort: 80
           resources:
