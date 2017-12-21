@@ -18,10 +18,10 @@ namespace Titan.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int userId1, int userId2)
         {
-            var user1 = await _userService.GetUserById(1);
-            var user2 = await _userService.GetUserById(2);
+            var user1 = await _userService.GetUserById(userId1);
+            var user2 = await _userService.GetUserById(userId2);
 
             var value = await _userService.DistanceBetweenUsers(user1, user2);
             return Ok(value);
