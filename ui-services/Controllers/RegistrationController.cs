@@ -25,16 +25,6 @@ namespace Titan.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var user1 = await _userService.GetUserById(1);
-            var user2 = await _userService.GetUserById(2);
-
-            var value = await _userService.DistanceBetweenUsers(user1, user2);
-            return Ok(value);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RegistrationCreateModel model)
         {
