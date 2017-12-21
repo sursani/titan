@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Titan.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -24,16 +25,10 @@ namespace Titan.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-            {
-                _logger.LogInformation("{0} - {1}", de.Key, de.Value);
-            }
-
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
-        [Authorize]
         [HttpGet("{id}")]
         public string Get(int id)
         {
