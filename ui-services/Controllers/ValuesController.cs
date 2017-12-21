@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,7 +33,7 @@ namespace Titan.Controllers
         }
 
         // GET api/values/5
-        [Authorize("SuperAdministrator")]
+        [Authorize]
         [HttpGet("{id}")]
         public string Get(int id)
         {

@@ -68,7 +68,7 @@ namespace Titan
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("SuperAdministrator", policy => policy.RequireClaim(ClaimTypes.Name, "faran"));
+                options.AddPolicy("SuperAdministrator", policy => policy.RequireClaim(ClaimTypes.Name, "SuperAdministrator"));
             });
 
             // Register the Swagger generator, defining one or more Swagger documents

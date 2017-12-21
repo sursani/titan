@@ -67,5 +67,10 @@ namespace Titan.Services
         {
             return await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<User> ValidateCredentials(string userName, string password)
+        {
+            return await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName && x.Password == password);
+        }
     }
 }

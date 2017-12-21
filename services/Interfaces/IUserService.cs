@@ -8,6 +8,8 @@ namespace Titan.Services
         Task<bool> RegisterNewUser(string userName, string password, string firstName, string lastName,
                 string email, Gender gender, double latitude, double longitude);
 
+        Task<User> ValidateCredentials(string userName, string password);
+
         Task<User> GetUserById(int id);
 
         Task<double> DistanceBetweenUsers(User firstUser, User secondUser);

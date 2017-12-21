@@ -2,27 +2,41 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Titan.Entities;
 using Titan.Models;
+using Titan.Services;
 
 namespace Titan.Controllers
 {
     [Route("api/[controller]")]
-    public class TokenController : Controller
+    public class LoginController : Controller
     {
-        [HttpPost]
-        public IActionResult Create([FromBody]TokenCreateModel model)
+        private readonly ILogger<LoginController> _logger;
+        private readonly IUserService _userService;
+
+        public LoginController(ILogger<LoginController> logger, IUserService userService)
         {
-            if (IsValidUserAndPasswordCombination(model.UserName, model.Password))
-                return new ObjectResult(GenerateToken(model.UserName));
+            _logger = logger;
+            _userService = userService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody]TokenCreateModel model)
+        {
+            var user = await IsValidUserAndPasswordCombination(model.UserName, model.Password);
+            if (user != null)
+                return new ObjectResult(GenerateToken(user.UserName));
             
             return BadRequest();
         }
 
-        private bool IsValidUserAndPasswordCombination(string username, string password)
+        private async Task<User> IsValidUserAndPasswordCombination(string username, string password)
         {
-            return !string.IsNullOrEmpty(username) && username == password;
+            return await _userService.ValidateCredentials(username, password);
         }
 
         private string GenerateToken(string username)
@@ -36,7 +50,7 @@ namespace Titan.Controllers
 
             var token = new JwtSecurityToken(
                 new JwtHeader(new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")), 
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("the secret that needs to be at least 16 characeters long for HmacSha256")),
                                              SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(claims));
 
