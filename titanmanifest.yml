@@ -28,6 +28,10 @@ spec:
           #    cpu: 500m
           # The following environment variables will contain the database host,
           # user and password to connect to the PostgreSQL instance.
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /cloudstorage
+              readOnly: true
           env:
             - name: POSTGRES_DB_HOST
               value: 127.0.0.1
@@ -42,6 +46,8 @@ spec:
                 secretKeyRef:
                   name: cloudsql-db-credentials
                   key: password
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /cloudstorage/credentials.json
             # [END cloudsql_secrets]
         # Change <INSTANCE_CONNECTION_NAME> here to include your GCP
         # project, the region of your Cloud SQL instance and the name

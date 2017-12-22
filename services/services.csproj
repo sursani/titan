@@ -3,6 +3,7 @@
     <ProjectReference Include="..\data\data.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="2.1.0-beta03" />
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
   </ItemGroup>
   <PropertyGroup>

@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Cloud.Storage.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -71,6 +72,21 @@ namespace Titan.Services
         public async Task<User> ValidateCredentials(string userName, string password)
         {
             return await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName && x.Password == password);
+        }
+
+        public async Task<string> UploadPictures(string path)
+        {
+            // credentials come from env variable
+            var storage = StorageClient.Create();
+
+            var buckets = storage.ListBuckets("titan-185301");
+
+            var sb = new System.Text.StringBuilder();
+            foreach (var bucket in buckets)
+            {
+                sb.Append(bucket.Name + " ");
+            }
+            return sb.ToString();
         }
     }
 }
