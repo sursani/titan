@@ -18,7 +18,7 @@ namespace Titan.Controllers
             _userService = userService;
         }
 
-        [HttpPost("UploadFiles")]
+        [HttpPost("UploadPicture")]
         public async Task<IActionResult> Post(IFormFile file)
         {
             long size = file.Length;
