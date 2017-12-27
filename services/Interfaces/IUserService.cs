@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 using Titan.Entities;
 
@@ -10,6 +11,6 @@ namespace Titan.Services
         Task<User> ValidateCredentials(string userName, string password);
         Task<User> GetUserById(int id);
         Task<double> DistanceBetweenUsers(User firstUser, User secondUser);
-        Task<string> UploadPictures(string path);
+        Task<bool> UploadPicture(string objectName, MemoryStream stream);
     }
 }

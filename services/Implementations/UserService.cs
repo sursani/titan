@@ -1,8 +1,12 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Google;
+using Google.Apis.Requests;
+using Google.Apis.Storage.v1.Data;
 using Google.Cloud.Storage.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +21,7 @@ namespace Titan.Services
 {
     public class UserService : IUserService
     {
+        private const string IMAGES_BUCKET_NAME = "titan-images";
         private readonly TitanContext _context;
         private readonly IOptions<ConnectionStringOptions> _connStrOptions;
 
@@ -48,7 +53,7 @@ namespace Titan.Services
 
         public async Task<double> DistanceBetweenUsers(User firstUser, User secondUser)
         {
-            using (var conn = new NpgsqlConnection(new ApplicationContext().GetConnectionString(_connStrOptions.Value.TitanContext)))
+            using (var conn = new NpgsqlConnection(new Data.ApplicationContext().GetConnectionString(_connStrOptions.Value.TitanContext)))
             {
                 await conn.OpenAsync();
                 using (var cmd = new NpgsqlCommand())
@@ -74,19 +79,41 @@ namespace Titan.Services
             return await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName && x.Password == password);
         }
 
-        public async Task<string> UploadPictures(string path)
+        public async Task<bool> UploadPicture(string objectName, MemoryStream stream)
         {
             // credentials come from env variable
-            var storage = StorageClient.Create();
-
-            var buckets = storage.ListBuckets("titan-185301");
-
-            var sb = new System.Text.StringBuilder();
-            foreach (var bucket in buckets)
+            using (var storage = StorageClient.Create())
             {
-                sb.Append(bucket.Name + " ");
+                // ensure bucket is created
+                await CreateBucketIfNotExists(storage);
+
+                // upload object to storage
+                await storage.UploadObjectAsync(IMAGES_BUCKET_NAME, objectName, null, stream);
+                stream.Close();
+                return true;
             }
-            return sb.ToString();
+        }
+
+        private async Task<bool> CreateBucketIfNotExists(StorageClient storage)
+        {
+            Bucket bucket = null;
+            var code = -1;
+            
+            try
+            {
+                bucket = await storage.GetBucketAsync(IMAGES_BUCKET_NAME);
+            }
+            catch (GoogleApiException gae)
+            {
+                code = gae.Error.Code;
+            }
+
+            if (code == 404)
+            {
+                bucket = await storage.CreateBucketAsync("titan-185301", IMAGES_BUCKET_NAME);
+            }
+
+            return bucket != null;
         }
     }
 }

@@ -22,29 +22,17 @@ namespace Titan.Controllers
         public async Task<IActionResult> Post(IFormFile file)
         {
             long size = file.Length;
-            
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
 
             if (file.Length > 0)
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new MemoryStream())
                 {
                     await file.CopyToAsync(stream);
+                    await _userService.UploadPicture(file.FileName, stream);
                 }
             }
 
-
-
-            return Ok(new { size, filePath});
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAction()
-        {
-            var str = await _userService.UploadPictures("");
-
-            return Ok(new { result = str });
+            return Ok(new { size });
         }
     }
 }
