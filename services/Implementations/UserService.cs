@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -90,6 +91,17 @@ namespace Titan.Services
                 // upload object to storage
                 await storage.UploadObjectAsync(IMAGES_BUCKET_NAME, objectName, null, stream);
                 stream.Close();
+
+                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == "user1");
+                var isFirstImage = user.Images != null ? !user.Images.Any() : true;
+
+                if (isFirstImage)
+                    user.Images = new List<UserImage>();
+
+                user.Images.Add(new UserImage { Name = objectName, IsDefault = isFirstImage });
+
+                await _context.SaveChangesAsync();
+
                 return true;
             }
         }

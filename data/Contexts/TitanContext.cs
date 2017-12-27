@@ -14,6 +14,7 @@ namespace Titan.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<UserImage>().ToTable("UserImage");
         }
     }
 }
