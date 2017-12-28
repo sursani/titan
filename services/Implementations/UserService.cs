@@ -95,13 +95,13 @@ namespace Titan.Services
                 var user = await _context.Users
                                     .Include(i => i.Images)
                                     .SingleOrDefaultAsync(x => x.UserName == "user1");
-                                    
+
                 var isFirstImage = user.Images.Count < 1;
 
                 if (isFirstImage)
                     user.Images = new List<UserImage>();
 
-                user.Images.Add(new UserImage { Name = objectName, IsDefault = isFirstImage });
+                user.Images.Add(new UserImage { Name = objectName, IsDefault = isFirstImage, Created = DateTime.UtcNow });
 
                 await _context.SaveChangesAsync();
 
