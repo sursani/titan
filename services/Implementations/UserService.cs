@@ -80,7 +80,7 @@ namespace Titan.Services
             return await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName && x.Password == password);
         }
 
-        public async Task<bool> UploadPicture(string objectName, MemoryStream stream)
+        public async Task<bool> UploadPicture(string objectName, string contentType, MemoryStream stream)
         {
             // credentials come from env variable
             using (var storage = StorageClient.Create())
@@ -89,11 +89,14 @@ namespace Titan.Services
                 await CreateBucketIfNotExists(storage);
 
                 // upload object to storage
-                await storage.UploadObjectAsync(IMAGES_BUCKET_NAME, objectName, null, stream);
+                await storage.UploadObjectAsync(IMAGES_BUCKET_NAME, objectName, contentType, stream);
                 stream.Close();
 
-                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == "user1");
-                var isFirstImage = user.Images != null ? !user.Images.Any() : true;
+                var user = await _context.Users
+                                    .Include(i => i.Images)
+                                    .SingleOrDefaultAsync(x => x.UserName == "user1");
+                                    
+                var isFirstImage = user.Images.Count < 1;
 
                 if (isFirstImage)
                     user.Images = new List<UserImage>();

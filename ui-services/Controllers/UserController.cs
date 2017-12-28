@@ -28,7 +28,7 @@ namespace Titan.Controllers
                 using (var stream = new MemoryStream())
                 {
                     await file.CopyToAsync(stream);
-                    await _userService.UploadPicture(file.FileName, stream);
+                    await _userService.UploadPicture(file.FileName, file.ContentType, stream);
                 }
             }
 

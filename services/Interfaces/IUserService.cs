@@ -11,6 +11,6 @@ namespace Titan.Services
         Task<User> ValidateCredentials(string userName, string password);
         Task<User> GetUserById(int id);
         Task<double> DistanceBetweenUsers(User firstUser, User secondUser);
-        Task<bool> UploadPicture(string objectName, MemoryStream stream);
+        Task<bool> UploadPicture(string objectName, string contentType, MemoryStream stream);
     }
 }
